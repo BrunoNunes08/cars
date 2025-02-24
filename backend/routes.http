@@ -1,0 +1,62 @@
+@baseURL = http://localhost:3333
+
+GET {{baseURL}}
+
+###
+
+POST {{baseURL}}/user/register
+Content-Type: application/json
+
+{
+	"name": "Bruno Nunes",
+    "email": "bruno@email.com",
+    "password": "admin123"
+}
+
+
+###
+
+POST {{baseURL}}/user/login
+Content-Type: application/json
+
+{
+    "email": "bruno@email.com",
+    "password": "admin123"
+}
+
+###
+
+GET {{baseURL}}/car/list
+
+###
+
+POST {{baseURL}}/car/register
+Content-Type: application/json
+
+{
+    "brand": "Toyota",
+    "licensePlate": "TEST-200",
+    "driver": 1
+}
+
+###
+
+DELETE {{baseURL}}/car/delete/1
+
+###
+
+PATCH {{baseURL}}/car/parking/update
+Content-Type: application/json
+
+{
+    "parkingSpace": "3B6"
+}
+
+###
+
+POST {{baseURL}}/parking/register
+Content-Type: application/json
+
+{
+    "id": "3B7"
+}

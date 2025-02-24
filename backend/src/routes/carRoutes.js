@@ -1,12 +1,25 @@
 import { Router } from "express";
+import dbConnection from "../lib/db.js";
 
 export const routes = Router();
 
 routes.get("/list", (req, res) => {
-    return res.status(200).json({
-        data: { email, password },
-        success: true,
-        message: "Carros listados",
+    const query = "SELECT license_plate as licensePlate, users.name as driver, parking_space as parkingSpace FROM cars INNER JOIN users WHERE users.id = cars.driver";
+
+    dbConnection.query(query, (err, results) => {
+        if (err) {
+            return res.status(500).json({
+                success: false,
+                message: "Erro ao listar carros",
+                data: err
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Produtos listados",
+            data: results
+        })
     });
 });
 
@@ -24,20 +37,32 @@ routes.post("/register", (req, res) => {
         .json({ data: 1, success: true, message: "Carro registrado" });
 });
 
-routes.patch("/parking", (req, res) => {
+routes.patch("/parking/update/:car", (req, res) => {
     const { parkingSpace } = req.body;
-    if (!parkingSpace) {
+    const id = req.params.car;
+    if (!parkingSpace || !id) {
         return res
             .status(400)
             .json({ message: "Dados mal formatados", success: false });
     }
     return res
         .status(200)
-        .json({ data: 1, success: true, message: "Vaga de carro alterada" });
+        .json({ success: true, message: "Carro mudou de vaga" });
 });
 
-routes.delete("/delete", (req, res) => {
+routes.patch("/parking/delete/:car", (req, res) => {
+    const id = req.params.car;
+    if (!id) {
+        return res
+            .status(400)
+            .json({ message: "Dados mal formatados", success: false });
+    }
     return res
         .status(200)
-        .json({ success: true, message: "Carro deletado" });
+        .json({ success: true, message: "Carro saiu de sua vaga" });
+});
+
+routes.delete("/delete/:id", (req, res) => {
+    const { id } = req.params;
+    return res.status(200).json({ success: true, message: "Carro deletado" });
 });

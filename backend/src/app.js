@@ -3,7 +3,7 @@ import cors from "cors";
 import { portEnv } from "./lib/env.js";
 import { routes as userRoutes } from "./routes/userRoutes.js";
 import { routes as carRoutes } from "./routes/carRoutes.js";
-import dbConnection from "./lib/db.js";
+import { routes as parkingRoutes } from "./routes/parkingRoutes.js";
 
 const app = express();
 
@@ -17,5 +17,6 @@ app.all("/", (req, res) => {
 });
 app.use("/user", userRoutes);
 app.use("/car", carRoutes);
+app.use("/parking", parkingRoutes);
 
 app.listen(port, () => console.log(`Server running ${port}`));

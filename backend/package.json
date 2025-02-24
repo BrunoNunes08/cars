@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mysql2": "^3.12.0"
+  },
+  "name": "cars",
+  "version": "1.0.0",
+  "main": "src/app.js",
+  "devDependencies": {},
+  "scripts": {
+    "dev": "node --watch ./src/app",
+    "start": "node ./src/app"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "type": "module"
+}

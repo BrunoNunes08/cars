@@ -106,7 +106,7 @@ routes.delete("/delete/:id", (req, res) => {
             .json({ message: "Dados mal formatados", success: false });
     }
 
-    const query = "DELETE cars WHERE id = ?";
+    const query = "DELETE FROM cars WHERE id = ?";
     dbConnection.query(query, [id], (err, results) => {
         if (err) {
             return res.status(500).json({

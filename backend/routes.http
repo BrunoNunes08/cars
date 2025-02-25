@@ -67,5 +67,5 @@ POST {{baseURL}}/parking/register
 Content-Type: application/json
 
 {
-    "id": "3B7"
+    "id": "3B8"
 }

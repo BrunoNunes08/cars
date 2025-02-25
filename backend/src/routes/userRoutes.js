@@ -4,17 +4,17 @@ import dbConnection from "../lib/db.js";
 export const routes = Router();
 
 routes.post("/register", (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email, password, cpf } = req.body;
 
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !cpf) {
         return res
             .status(400)
             .json({ message: "Dados mal formatados", success: false });
     }
 
-    const query = "SELECT license_plate as licensePlate, users.name as driver, parking_space as parkingSpace FROM cars INNER JOIN users WHERE users.id = cars.driver";
+    const query = "INSERT INTO users (name, email, password, cpf) VALUES (?, ?, ?, ?)";
 
-    dbConnection.query(query, (err, results) => {
+    dbConnection.query(query, [name, email, password, cpf], (err, results) => {
         if (err) {
             return res.status(500).json({
                 success: false,

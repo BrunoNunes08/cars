@@ -35,7 +35,7 @@ Content-Type: application/json
 
 {
     "brand": "Toyota",
-    "licensePlate": "TEST-200",
+    "licensePlate": "TEST-20",
     "driver": 1
 }
 
@@ -45,11 +45,20 @@ DELETE {{baseURL}}/car/delete/1
 
 ###
 
-PATCH {{baseURL}}/car/parking/update
+PATCH {{baseURL}}/car/parking/update/2
 Content-Type: application/json
 
 {
-    "parkingSpace": "3B6"
+    "parkingSpace": "3B7"
+}
+
+###
+
+PATCH {{baseURL}}/car/parking/delete/2
+Content-Type: application/json
+
+{
+    "parkingSpace": "3B7"
 }
 
 ###

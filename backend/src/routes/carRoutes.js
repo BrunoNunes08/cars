@@ -32,9 +32,21 @@ routes.post("/register", (req, res) => {
             .json({ message: "Dados mal formatados", success: false });
     }
 
-    return res
-        .status(201)
-        .json({ data: 1, success: true, message: "Carro registrado" });
+    const query = "INSERT INTO cars (brand, license_plate, driver) VALUES (?, ?, ?);";
+
+    dbConnection.query(query, [brand, licensePlate, driver], (err, results) => {
+        if (err) {
+            return res.status(500).json({
+                success: false,
+                message: "Erro ao cadastrar carro",
+                data: err
+            });
+        }
+
+        return res
+            .status(201)
+            .json({ data: {insertId: results.insertId}, success: true, message: "Carro registrado" });
+    });
 });
 
 routes.patch("/parking/update/:car", (req, res) => {
@@ -45,9 +57,22 @@ routes.patch("/parking/update/:car", (req, res) => {
             .status(400)
             .json({ message: "Dados mal formatados", success: false });
     }
-    return res
-        .status(200)
-        .json({ success: true, message: "Carro mudou de vaga" });
+
+    const query = "UPDATE cars SET parking_space = ? WHERE id = ?";
+
+    dbConnection.query(query, [parkingSpace, id], (err, results) => {
+        if (err) {
+            return res.status(500).json({
+                success: false,
+                message: "Erro ao mudar carro de vaga",
+                data: err
+            });
+        }
+        
+        return res
+            .status(200)
+            .json({ success: true, message: "Carro mudou de vaga" });
+    });
 });
 
 routes.patch("/parking/delete/:car", (req, res) => {
@@ -57,12 +82,41 @@ routes.patch("/parking/delete/:car", (req, res) => {
             .status(400)
             .json({ message: "Dados mal formatados", success: false });
     }
-    return res
-        .status(200)
-        .json({ success: true, message: "Carro saiu de sua vaga" });
+    const query = "UPDATE cars SET parking_space = null WHERE id = ?";
+    dbConnection.query(query, [id], (err, results) => {
+        if (err) {
+            return res.status(500).json({
+                success: false,
+                message: "Erro ao tirar carro de vaga",
+                data: err
+            });
+        }
+        
+        return res
+            .status(200)
+            .json({ success: true, message: "Carro saiu de sua vaga" });
+    });
 });
 
 routes.delete("/delete/:id", (req, res) => {
     const { id } = req.params;
-    return res.status(200).json({ success: true, message: "Carro deletado" });
+    if (!id) {
+        return res
+            .status(400)
+            .json({ message: "Dados mal formatados", success: false });
+    }
+
+    const query = "DELETE cars WHERE id = ?";
+    dbConnection.query(query, [id], (err, results) => {
+        if (err) {
+            return res.status(500).json({
+                success: false,
+                message: "Erro ao deletar carro",
+                data: err
+            });
+        }
+        return res
+            .status(200)
+            .json({ success: true, message: "Carro deletado" });
+    });
 });

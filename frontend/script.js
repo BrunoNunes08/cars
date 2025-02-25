@@ -24,7 +24,7 @@ const init = async () => {
                 </div>
                 <div>
                     <span>Vaga:</span>
-                    <span>${car.parkingSpace}</span>
+                    <span>${car.parkingSpace ?? "Nenhuma"}</span>
                 </div>
         </div>
         `;

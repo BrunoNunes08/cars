@@ -9,10 +9,10 @@ Content-Type: application/json
 
 {
 	"name": "Bruno Nunes",
-    "email": "bruno@email.com",
-    "password": "admin123"
+    "email": "bruno5@email.com",
+    "password": "admin123",
+    "cpf": "12345678910"
 }
-
 
 ###
 
@@ -46,15 +46,6 @@ DELETE {{baseURL}}/car/delete/1
 ###
 
 PATCH {{baseURL}}/car/parking/update/2
-Content-Type: application/json
-
-{
-    "parkingSpace": "3B7"
-}
-
-###
-
-PATCH {{baseURL}}/car/parking/delete/2
 Content-Type: application/json
 
 {

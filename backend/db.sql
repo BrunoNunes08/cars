@@ -27,6 +27,6 @@ create table cars (
 
 INSERT INTO users (name, email, password, cpf) VALUES ("Bruno", "bruno@email.com", "admin123", "12345678910");
 
-INSERT INTO parking_spaces(id) VALUES ("3B7");
+INSERT INTO parking_spaces(id) VALUES ("3B7"), ("1A1"), ("1A2"), ("1A3"), ("1B1"), ("1B2"), ("1B3");
 
 INSERT INTO cars (brand, license_plate, driver, parking_space) VALUES ("Chevrolet", "IOD-469", 1, "3B7");

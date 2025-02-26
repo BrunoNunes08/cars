@@ -1,34 +1,19 @@
-const init = async () => {
-    const res = await fetch("http://localhost:3333/car/list");
-    const results = await res.json();
+import { initCarRegister, initHome, initLogin, initParkingSpaceEdit, initRegister } from "./scripts/initsScripts.js";
 
-    if (!results.success) {
-        alert("Erro ao listar carros");
-        return;
-    }
-
-    const carSection = document.querySelector(".car-section");
-    for (let car of results.data) {
-        carSection.innerHTML += `
-        <div class="car-info">
-                <div>
-                    <img src="assets/car.png" alt="">
-                </div>
-                <div>
-                    <span>Placa:</span>
-                    <span>${car.licensePlate}</span>
-                </div>
-                <div>
-                    <span>Dono:</span>
-                    <span>${car.driver}</span>
-                </div>
-                <div>
-                    <span>Vaga:</span>
-                    <span>${car.parkingSpace ?? "Nenhuma"}</span>
-                </div>
-        </div>
-        `;
-    }
-};
-
-init();
+switch (document.title) {
+    case "Carros Tunados":
+        initHome();
+        break;
+    case "Login - Carros Tunados":
+        initLogin();
+        break;
+    case "Cadastro - Carros Tunados":
+        initRegister();
+        break;
+    case "Cadastro de Carros - Carros Tunados":
+        initCarRegister();
+        break;
+    case "Editar Vaga - Carros Tunados":
+        initParkingSpaceEdit();
+        break;
+}

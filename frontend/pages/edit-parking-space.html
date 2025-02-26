@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carros Tunados</title>
+    <title>Editar Vaga - Carros Tunados</title>
+    <base href="../">
     <link rel="stylesheet" href="style.css">
     <script type="module" src="script.js"></script>
 </head>
@@ -12,12 +13,14 @@
         <img src="assets/car.png" alt="Logo dos Carros Tunados">
     </header>
     <main>
-        <section class="car-section">
-            <header>
-                <h1>Carros</h1>
-                <a href="pages/car-register.html">Cadastrar Carro</a>
-            </header>
-        </section>
+        <form class="form">
+            <h1>Edite a vaga do seu carro</h1>
+            <div class="car"></div>
+            <select name="parkingSpace" id="parkingSpace">
+                <option value="">Nenhuma</option>
+            </select>
+            <button type="submit">Enviar</button>
+        </form>
     </main>
 </body>
 </html>

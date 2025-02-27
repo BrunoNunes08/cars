@@ -14,12 +14,30 @@ export const initHome = async () => {
         return;
     }
 
+    const deleteCar = async (id) => {
+        const willDelete = confirm("Você deseja deletar o carro?");
+        if (!willDelete) {
+            return;
+        }
+        const res = await fetch("http://localhost:3333/car/delete/" + id, {
+            method: "DELETE"
+        });
+        const result = await res.json();
+        if (!result.success || !res.ok) {
+            console.error(result);
+            alert("Erro");
+            return;
+        }
+        location.reload();
+    }
+
     const carSection = document.querySelector(".car-section");
     for (let car of results.data) {
         carSection.innerHTML += `
         <div class="car-info">
                 <div>
                     <img src="assets/car.png" alt="">
+                    ${car.driverId === user.id ? `<button class="delete-button">Deletar</button>` : ""}
                 </div>
                 <div>
                     <span>Placa:</span>
@@ -32,10 +50,13 @@ export const initHome = async () => {
                 <div>
                     <span>Vaga:</span>
                     <span>${car.parkingSpace ?? "Nenhuma"}</span>
-                    ${car.driverId === user.id && `<a href='/frontend/pages/edit-parking-space.html?licensePlate=${car.licensePlate}'>Editar vaga</a>`}
+                    ${car.driverId === user.id ? `<a href='/frontend/pages/edit-parking-space.html?licensePlate=${car.licensePlate}'>Editar vaga</a>` : ""}
                 </div>
         </div>
         `;
+        document.querySelector(".delete-button")?.addEventListener("click", () => {
+            deleteCar(car.id);
+        });
     }
 };
 

@@ -2,7 +2,7 @@ import dbConnection from "../lib/db.js";
 
 export const listCars = (_, res) => {
     const query =
-        "SELECT license_plate as licensePlate, users.name as driver, users.id as driverId, parking_space as parkingSpace FROM cars INNER JOIN users WHERE users.id = cars.driver";
+        "SELECT license_plate as licensePlate, users.name as driver, users.id as driverId, parking_space as parkingSpace, cars.id FROM cars INNER JOIN users WHERE users.id = cars.driver";
 
     dbConnection.query(query, (err, results) => {
         if (err) {
